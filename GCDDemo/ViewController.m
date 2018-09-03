@@ -83,7 +83,7 @@
     dispatch_semaphore_signal(semaphore);
     
     
-    //信号量在1和0之间切换可使不同并行队列中的相关任务按顺序执行，防止不同线程同时访问同一资源，实现线程安全
+    //信号量在1和0之间切换可使不同并行队列中的相关任务按顺序执行，防止不同线程同时访问同一资源，实现线程安全，注意要在不同线程中使用同一个信号量，比如使用静态变量或者将其声明为属性，不要在不同线程中重复创建出不同的信号量
     dispatch_async(defaultGlobalQueue, ^{
         dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);//信号量值-1
         NSLog(@"test dispatch_semaphore 1");
